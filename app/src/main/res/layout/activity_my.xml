@@ -1,173 +1,125 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:cirbtn="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:padding="10dp"
     tools:context=".MyActivity"
-    android:background="@android:color/background_light"
+    android:background="#ffbebebe"
     android:id="@+id/relative_layout">
 
-    <TextView
+    <weixiaokang.caculator.component.AboveView
         android:id="@+id/result_view"
-        android:text="@string/result"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:gravity="right"
-        android:textSize="25sp"/>
-    <TextView
+        style="@style/TVTheme"/>
+    <weixiaokang.caculator.component.BelowView
         android:id="@+id/edit_view"
         android:layout_below="@id/result_view"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
         android:hint="@string/hint"
-        android:gravity="right"
-        android:textSize="25sp"/>
+        style="@style/TVTheme"/>
         <TableLayout
             android:stretchColumns="*"
             android:id="@+id/table_layout"
             android:layout_below="@id/edit_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="10dp"
             android:background="@android:color/background_light">
             <TableRow
                 android:layout_weight="1"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_width="wrap_content">
-                <Button
-                    style="?android:attr/buttonBarButtonStyle"
+                <weixiaokang.caculator.component.CircleButton
                     android:id="@+id/c_button"
-                    android:layout_height="match_parent"
-                    android:layout_width="match_parent"
-                    android:text="@string/c"/>
-                <Button
-                    style="?android:attr/buttonBarButtonStyle"
+                    android:text="@string/c"
+                    style="@style/BtnTheme"/>
+                <weixiaokang.caculator.component.CircleButton
                     android:id="@+id/del_button"
-                    android:layout_height="match_parent"
-                    android:layout_width="match_parent"
-                    android:text="@string/del"/>
-                <Button
-                    style="?android:attr/buttonBarButtonStyle"
+                    android:text="@string/del"
+                    style="@style/BtnTheme"/>
+                <weixiaokang.caculator.component.CircleButton
                     android:id="@+id/div_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="@string/div"/>
-                <Button
-                    style="?android:attr/buttonBarButtonStyle"
+                    android:text="@string/div"
+                    style="@style/BtnTheme"/>
+                <weixiaokang.caculator.component.CircleButton
                     android:id="@+id/mul_button"
-                    android:layout_height="match_parent"
-                    android:layout_width="match_parent"
-                    android:text="@string/mul"/>
+                    android:text="@string/mul"
+                    style="@style/BtnTheme"/>
             </TableRow>
             <TableRow
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <Button
-                    style="?android:attr/buttonBarButtonStyle"
+                android:layout_height="0dp">
+                <weixiaokang.caculator.component.CircleButton
                     android:id="@+id/nine"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="@string/nine"/>
-                <Button
-                    style="?android:attr/buttonBarButtonStyle"
+                    android:text="@string/nine"
+                    style="@style/BtnTheme"/>
+                <weixiaokang.caculator.component.CircleButton
                     android:id="@+id/eight"
-                    android:layout_height="match_parent"
-                    android:layout_width="match_parent"
-                    android:text="@string/eight"/>
-                <Button
-                    style="?android:attr/buttonBarButtonStyle"
+                    android:text="@string/eight"
+                    style="@style/BtnTheme"/>
+                <weixiaokang.caculator.component.CircleButton
                     android:id="@+id/seven"
-                    android:layout_height="match_parent"
-                    android:layout_width="match_parent"
-                    android:text="@string/seven"/>
-                <Button
-                    style="?android:attr/buttonBarButtonStyle"
+                    android:text="@string/seven"
+                    style="@style/BtnTheme"/>
+                <weixiaokang.caculator.component.CircleButton
                     android:id="@+id/minus"
-                    android:layout_height="match_parent"
-                    android:layout_width="match_parent"
-                    android:text="@string/minus"/>
+                    android:text="@string/minus"
+                    style="@style/BtnTheme"/>
             </TableRow>
             <TableRow
                 android:layout_weight="1"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_width="wrap_content">
-                <Button
-                    style="?android:attr/buttonBarButtonStyle"
+                <weixiaokang.caculator.component.CircleButton
                     android:id="@+id/six"
-                    android:layout_height="match_parent"
-                    android:layout_width="match_parent"
-                    android:text="@string/six"/>
-                <Button
-                    style="?android:attr/buttonBarButtonStyle"
+                    android:text="@string/six"
+                    style="@style/BtnTheme"/>
+                <weixiaokang.caculator.component.CircleButton
                     android:id="@+id/five"
-                    android:layout_height="match_parent"
-                    android:layout_width="match_parent"
-                    android:text="@string/five"/>
-                <Button
-                    style="?android:attr/buttonBarButtonStyle"
+                    android:text="@string/five"
+                    style="@style/BtnTheme"/>
+                <weixiaokang.caculator.component.CircleButton
                     android:id="@+id/four"
-                    android:layout_height="match_parent"
-                    android:layout_width="match_parent"
-                    android:text="@string/four"/>
-                <Button
-                    style="?android:attr/buttonBarButtonStyle"
+                    android:text="@string/four"
+                    style="@style/BtnTheme"/>
+                <weixiaokang.caculator.component.CircleButton
                     android:id="@+id/plus"
-                    android:layout_height="match_parent"
-                    android:layout_width="match_parent"
-                    android:text="@string/plus"/>
+                    android:text="@string/plus"
+                    style="@style/BtnTheme"/>
             </TableRow>
             <TableRow
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <Button
-                    style="?android:attr/buttonBarButtonStyle"
+                android:layout_height="0dp">
+                <weixiaokang.caculator.component.CircleButton
                     android:id="@+id/three"
-                    android:layout_height="match_parent"
-                    android:layout_width="match_parent"
-                    android:text="@string/three"/>
-                <Button
-                    style="?android:attr/buttonBarButtonStyle"
+                    android:text="@string/three"
+                    style="@style/BtnTheme"/>
+                <weixiaokang.caculator.component.CircleButton
                     android:id="@+id/two"
-                    android:layout_height="match_parent"
-                    android:layout_width="match_parent"
-                    android:text="@string/two"/>
-                <Button
-                    style="?android:attr/buttonBarButtonStyle"
+                    android:text="@string/two"
+                    style="@style/BtnTheme"/>
+                <weixiaokang.caculator.component.CircleButton
                     android:id="@+id/one"
-                    android:layout_height="match_parent"
-                    android:layout_width="match_parent"
-                    android:text="@string/one"/>
-                <Button
-                    style="?android:attr/buttonBarButtonStyle"
+                    android:text="@string/one"
+                    style="@style/BtnTheme"/>
+                <weixiaokang.caculator.component.CircleButton
                     android:id="@+id/equ"
-                    android:layout_height="match_parent"
-                    android:layout_width="match_parent"
-                    android:text="@string/equ"/>
+                    android:text="@string/equ"
+                    style="@style/BtnTheme"/>
             </TableRow>
            <TableRow
                android:layout_weight="1"
-               android:layout_height="match_parent"
+               android:layout_height="0dp"
                android:layout_width="match_parent">
 
-               <Button
-                   style="?android:attr/buttonBarButtonStyle"
-                   android:layout_weight="1"
+               <weixiaokang.caculator.component.CircleButton
                    android:id="@+id/zero"
-                   android:layout_height="match_parent"
-                   android:layout_width="wrap_content"
-                   android:text="@string/zero"/>
-               <Button
-                   style="?android:attr/buttonBarButtonStyle"
-                   android:layout_weight="1"
+                   android:text="@string/zero"
+                   style="@style/BtnTheme"/>
+               <weixiaokang.caculator.component.CircleButton
                    android:id="@+id/dot"
-                   android:layout_height="match_parent"
-                   android:layout_width="wrap_content"
-                   android:text="@string/dot"/>
+                   android:text="@string/dot"
+                   style="@style/BtnTheme"/>
                </TableRow>
 
         </TableLayout>

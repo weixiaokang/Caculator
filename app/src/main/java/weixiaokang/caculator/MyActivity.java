@@ -2,26 +2,29 @@ package weixiaokang.caculator;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.LinkedList;
 
+import weixiaokang.caculator.component.AboveView;
+import weixiaokang.caculator.component.BelowView;
+import weixiaokang.caculator.component.CircleButton;
+import weixiaokang.caculator.util.Caculate;
+
 
 public class MyActivity extends Activity {
 
-    private Button div_button, mul_button, c_button, del_button
+    private CircleButton div_button, mul_button, c_button,del_button
          , plu_button, min_button, equ_button, dot_button
          , zero_button, one_button, two_button, three_button
          , four_button, five_button, six_button, seven_button
          , eight_button, nine_button;
-
-    private TextView result_view, edit_view;
+    private BelowView edit_view;
+    private AboveView result_view;
 
     private RelativeLayout relativelayout;
 
@@ -36,26 +39,7 @@ public class MyActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
 
-        result_view = (TextView)findViewById(R.id.result_view);
-        edit_view = (TextView)findViewById(R.id.edit_view);
-        c_button = (Button)findViewById(R.id.c_button);
-        del_button = (Button)findViewById(R.id.del_button);
-        div_button = (Button)findViewById(R.id.div_button);
-        mul_button = (Button)findViewById(R.id.mul_button);
-        plu_button = (Button)findViewById(R.id.plus);
-        min_button = (Button)findViewById(R.id.minus);
-        equ_button = (Button)findViewById(R.id.equ);
-        dot_button = (Button)findViewById(R.id.dot);
-        zero_button = (Button)findViewById(R.id.zero);
-        one_button = (Button)findViewById(R.id.one);
-        two_button = (Button)findViewById(R.id.two);
-        three_button = (Button)findViewById(R.id.three);
-        four_button = (Button)findViewById(R.id.four);
-        five_button = (Button)findViewById(R.id.five);
-        six_button = (Button)findViewById(R.id.six);
-        seven_button = (Button)findViewById(R.id.seven);
-        eight_button = (Button)findViewById(R.id.eight);
-        nine_button = (Button)findViewById(R.id.nine);
+        initView();
 
         one_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -227,13 +211,31 @@ public class MyActivity extends Activity {
         });
     }
 
-
-
-
-
-
-
-
+    /**
+     * initialize the view
+     */
+    private void initView() {
+        result_view = (AboveView)findViewById(R.id.result_view);
+        edit_view = (BelowView)findViewById(R.id.edit_view);
+        c_button = (CircleButton)findViewById(R.id.c_button);
+        del_button = (CircleButton)findViewById(R.id.del_button);
+        div_button = (CircleButton)findViewById(R.id.div_button);
+        mul_button = (CircleButton)findViewById(R.id.mul_button);
+        plu_button = (CircleButton)findViewById(R.id.plus);
+        min_button = (CircleButton)findViewById(R.id.minus);
+        equ_button = (CircleButton)findViewById(R.id.equ);
+        dot_button = (CircleButton)findViewById(R.id.dot);
+        zero_button = (CircleButton)findViewById(R.id.zero);
+        one_button = (CircleButton)findViewById(R.id.one);
+        two_button = (CircleButton)findViewById(R.id.two);
+        three_button = (CircleButton)findViewById(R.id.three);
+        four_button = (CircleButton)findViewById(R.id.four);
+        five_button = (CircleButton)findViewById(R.id.five);
+        six_button = (CircleButton)findViewById(R.id.six);
+        seven_button = (CircleButton)findViewById(R.id.seven);
+        eight_button = (CircleButton)findViewById(R.id.eight);
+        nine_button = (CircleButton)findViewById(R.id.nine);
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

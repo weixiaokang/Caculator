@@ -1,13 +1,9 @@
-package weixiaokang.caculator;
+package weixiaokang.caculator.util;
 
-
-import android.util.Log;
 
 import java.util.LinkedList;
 
-/**
- * Created by Administrator on 2014/7/7.
- */
+
 public class Caculate {
 
     public boolean testString(StringBuffer str) {
@@ -31,9 +27,7 @@ public class Caculate {
             for (int i = 0; i < str.length(); i++) {
                 if (str.charAt(i) == '×' || str.charAt(i) == '÷' || str.charAt(i) == '+' || str.charAt(i) == '-' || str.charAt(i) == '=') {
                     number.add(Double.parseDouble(str.substring(start, i)));
-//                Log.i("test", ""+Double.parseDouble(str.substring(start, i)));
                     c.add(str.charAt(i));
-//                Log.i("test", ""+str.charAt(i));
                     start = i + 1;
                 }
             }
@@ -62,7 +56,7 @@ public class Caculate {
                     c.remove(j);
                     break;
                 } else if (c.get(j) == '÷') {
-                    number.set(j, number.get(j)/number.get(j+1));
+                    number.set(j, number.get(j) / number.get(j+1));
                     number.remove(j + 1);
                     c.remove(j);
                     break;
@@ -72,11 +66,11 @@ public class Caculate {
 
         for (int i = 0; i < mp_count; i++) {
             for (int j = 0; j < c.size(); j++) {
-                if (c.get(j)=='+') {
+                if (c.get(j) == '+') {
                     number.set(j, number.get(j)+number.get(j + 1));
                     number.remove(j + 1);
                     c.remove(j);
-                } else if (c.get(j)=='-') {
+                } else if (c.get(j) =='-') {
                     number.set(j, number.get(j)-number.get(j + 1));
                     number.remove(j + 1);
                     c.remove(j);
