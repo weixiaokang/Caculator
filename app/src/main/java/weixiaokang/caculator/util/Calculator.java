@@ -4,7 +4,7 @@ package weixiaokang.caculator.util;
 import java.util.LinkedList;
 
 
-public class Caculator {
+public class Calculator {
 
     public boolean testString(StringBuffer str) {
 

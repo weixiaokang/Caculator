@@ -10,17 +10,17 @@ import java.util.Stack;
  * 遇到操作符就调出Stack中的两个数字计算将结果压入Stack中
  * 最后Stack中剩下的数字就是结果
  */
-public class Caculate {
+public class Calculate {
 	private String exp;
 	private StringBuilder stBuilder;
 	private HashMap<String, Integer> map;
 	private Stack<String> stack;
 
-    public Caculate() {
+    public Calculate() {
         this("");
     }
 
-	public Caculate(String exp) {
+	public Calculate(String exp) {
 		this.exp = exp;
 		stBuilder = new StringBuilder();
 		stack = new Stack<String>();

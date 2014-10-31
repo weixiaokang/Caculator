@@ -5,15 +5,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.RelativeLayout;
-
-import java.util.LinkedList;
 
 import weixiaokang.caculator.component.AboveView;
 import weixiaokang.caculator.component.BelowView;
 import weixiaokang.caculator.component.CircleButton;
-import weixiaokang.caculator.util.Caculate;
-import weixiaokang.caculator.util.Caculator;
+import weixiaokang.caculator.util.Calculate;
+import weixiaokang.caculator.util.Calculator;
 
 
 public class MyActivity extends Activity implements View.OnClickListener {
@@ -26,13 +23,13 @@ public class MyActivity extends Activity implements View.OnClickListener {
     private BelowView edit_view;
     private AboveView result_view;
 
-    private Caculate caculate;
+    private Calculate calculate;
     private StringBuffer str = new StringBuffer("");
 
-    private Caculator caculator = new Caculator();
+    private Calculator calculator = new Calculator();
 
-    private LinkedList<Double> number = new LinkedList<Double>();
-    private LinkedList<Character> character = new LinkedList<Character>();
+/*    private LinkedList<Double> number = new LinkedList<Double>();
+    private LinkedList<Character> character = new LinkedList<Character>();*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +41,7 @@ public class MyActivity extends Activity implements View.OnClickListener {
     }
 
     /**
-     * initialize the view
+     * 初始化组件
      */
     private void initView() {
         result_view = (AboveView)findViewById(R.id.result_view);
@@ -154,22 +151,22 @@ public class MyActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.plus:
                 str.append("+");
-                caculator.testString(str);
+                calculator.testString(str);
                 edit_view.setText(str);
                 break;
             case R.id.minus:
                 str.append("-");
-                caculator.testString(str);
+                calculator.testString(str);
                 edit_view.setText(str);
                 break;
             case R.id.div_button:
                 str.append("÷");
-                caculator.testString(str);
+                calculator.testString(str);
                 edit_view.setText(str);
                 break;
             case R.id.mul_button:
                 str.append("×");
-                caculator.testString(str);
+                calculator.testString(str);
                 edit_view.setText(str);
                 break;
             case R.id.del_button:
@@ -187,14 +184,14 @@ public class MyActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.equ:
                 str.append("=");
-                boolean flag = caculator.testString(str);
+                boolean flag = calculator.testString(str);
                 edit_view.setText(str);
                 if (flag) {
-                    caculate = new Caculate(str.toString());
-                    String result = caculate.caculate(caculate.convertToRPN());
+                    calculate = new Calculate(str.toString());
+                    String result = calculate.caculate(calculate.convertToRPN());
                     result_view.setText(result.replaceAll("0+?$", "").replaceAll("[.]$", ""));
                     str.delete(0, str.length());
-                    caculate = null;
+                    calculate = null;
                 } else {
                     edit_view.setText("0");
                     result_view.setText("0");
