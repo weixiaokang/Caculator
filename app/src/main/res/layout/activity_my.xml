@@ -15,6 +15,7 @@
         android:id="@+id/edit_view"
         android:layout_below="@id/result_view"
         android:hint="@string/hint"
+        android:maxLength="24"
         style="@style/TVTheme"/>
         <TableLayout
             android:stretchColumns="*"

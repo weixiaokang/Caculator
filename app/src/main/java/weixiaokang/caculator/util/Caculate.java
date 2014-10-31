@@ -1,82 +1,135 @@
 package weixiaokang.caculator.util;
 
+import java.util.HashMap;
+import java.util.Stack;
 
-import java.util.LinkedList;
-
-
+/**
+ * 本学期学了数据结构后，想到的新的计算方法
+ * convertToRPN方法将中缀表达式转为后缀表达式
+ * caculate方法遍历表达式中的字符，数字直接push到Stack中
+ * 遇到操作符就调出Stack中的两个数字计算将结果压入Stack中
+ * 最后Stack中剩下的数字就是结果
+ */
 public class Caculate {
+	private String exp;
+	private StringBuilder stBuilder;
+	private HashMap<String, Integer> map;
+	private Stack<String> stack;
 
-    public boolean testString(StringBuffer str) {
-
-        int location = str.length();
-        if (str.length() == 1 && (str.charAt(0) < '0' || str.charAt(0) > '9')) {
-            str.delete(location - 1, location);
-        } else if (str.charAt(location - 2) < '0' || str.charAt(location - 2) > '9') {
-            char c = str.charAt(location - 1);
-            str.delete(location - 1, location);
-            if (c == '=') {
-                return false;
-            }
-        }
-        return true;
+    public Caculate() {
+        this("");
     }
 
-    public void addElement(StringBuffer str, LinkedList<Double> number, LinkedList<Character> c) {
+	public Caculate(String exp) {
+		this.exp = exp;
+		stBuilder = new StringBuilder();
+		stack = new Stack<String>();
+		map = new HashMap<String, Integer>();
+		map.put("=", 0);
+		map.put("+", 1);
+		map.put("-", 1);
+		map.put("×", 2);
+		map.put("÷", 2);
+		map.put("(", 3);
+		map.put(")", 3);
+	}
 
-        int start = 0;
-            for (int i = 0; i < str.length(); i++) {
-                if (str.charAt(i) == '×' || str.charAt(i) == '÷' || str.charAt(i) == '+' || str.charAt(i) == '-' || str.charAt(i) == '=') {
-                    number.add(Double.parseDouble(str.substring(start, i)));
-                    c.add(str.charAt(i));
-                    start = i + 1;
-                }
-            }
+    public void setExp(String exp) {
+        this.exp = exp;
     }
 
-    public double computer(LinkedList<Double> number, LinkedList<Character> c) {
+    public String convertToRPN() {
+		int start = 0;
+		for (int i = 0; i < exp.length(); i++) {
+			if (exp.charAt(i)=='='
+					||exp.charAt(i)=='-'
+					||exp.charAt(i)=='+'
+					||exp.charAt(i)=='×'
+					||exp.charAt(i)=='÷'
+					||exp.charAt(i)=='('
+					||exp.charAt(i)==')') {
+				if (exp.charAt(start)>='0'&&exp.charAt(start)<='9') {
+					stBuilder.append(exp.substring(start, i) + " ");
+				}
+				start = i + 1;
+				putIntoStack(String.valueOf(exp.charAt(i)));
+			}
+		}
+		if (!stack.empty()) {
+		   stBuilder.append(stack.pop());
+		}
+		return stBuilder.toString();
+	}
 
-        int md_count = 0, mp_count = 0;
-        if (c.size() == 1) {
-            return number.get(0);
-        }
-        for (int i = 0; i < c.size(); i++) {
-            if (c.get(i)=='×'||c.get(i)=='÷') {
-                md_count++;
-            }
-            if (c.get(i)=='+'||c.get(i)=='-') {
-                mp_count++;
-            }
-        }
-
-        for (int i = 0; i < md_count; i++) {
-            for (int j = 0; j < c.size(); j++) {
-                if (c.get(j) == '×') {
-                    number.set(j, number.get(j) * number.get(j + 1));
-                    number.remove(j + 1);
-                    c.remove(j);
-                    break;
-                } else if (c.get(j) == '÷') {
-                    number.set(j, number.get(j) / number.get(j+1));
-                    number.remove(j + 1);
-                    c.remove(j);
-                    break;
-                }
-            }
-        }
-
-        for (int i = 0; i < mp_count; i++) {
-            for (int j = 0; j < c.size(); j++) {
-                if (c.get(j) == '+') {
-                    number.set(j, number.get(j)+number.get(j + 1));
-                    number.remove(j + 1);
-                    c.remove(j);
-                } else if (c.get(j) =='-') {
-                    number.set(j, number.get(j)-number.get(j + 1));
-                    number.remove(j + 1);
-                    c.remove(j);
-                }
-            }
-        }
-        return number.get(0);
-    }
+	private void putIntoStack(String operation) {
+			while (!stack.empty()) {
+				String top = stack.peek();
+				if (operation.equals("(")) {
+					stack.push(operation);
+					break;
+				} else if (operation.equals(")")) {
+					while (!top.equals("(")) {
+						stBuilder.append(top + " ");
+						top = stack.peek();
+					}
+					stack.pop();
+					break;
+				} else if (top.equals("(")) {
+					stack.push(operation);
+					break;
+				} else if(map.get(top) >= map.get(operation)) {
+					stBuilder.append(top + " ");
+					stack.pop();
+				} else {
+					stack.push(operation);
+					break;
+				}
+			}
+			if (stack.empty()) {
+				stack.push(operation);
+			}
+			System.out.println(stack.toString());
+	}
+	
+	public String caculate(String exp) {
+		Stack<Double> stack = new Stack<Double>();
+		for (String s : exp.split(" ")) {
+			if (s.charAt(0) >= '0' && s.charAt(0) <= '9') {
+				stack.push(Double.parseDouble(s));
+			} else {
+				double a, b, d;
+				switch (s.charAt(0)) {
+				case '+':
+					a = stack.pop();
+					b = stack.pop(); 
+					d = a + b;
+					System.out.println(d);
+					stack.push(d);
+					break;
+				case '-':
+					a = stack.pop();
+					b = stack.pop(); 
+					d = b - a;
+					System.out.println(d);
+					stack.push(d);
+					break;
+				case '×':
+					a = stack.pop();
+					b = stack.pop(); 
+					d = a * b;
+					System.out.println(d);
+					stack.push(d);
+					break;
+				case '÷':
+					a = stack.pop();
+					b = stack.pop(); 
+					d = b / a;
+					System.out.println(d);
+					stack.push(d);
+					break;
+				}
+			}
+		}
+		return String.valueOf(stack.pop());
+	}
 }

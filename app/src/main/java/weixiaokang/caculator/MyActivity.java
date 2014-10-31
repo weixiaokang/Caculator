@@ -6,7 +6,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import java.util.LinkedList;
 
@@ -14,9 +13,10 @@ import weixiaokang.caculator.component.AboveView;
 import weixiaokang.caculator.component.BelowView;
 import weixiaokang.caculator.component.CircleButton;
 import weixiaokang.caculator.util.Caculate;
+import weixiaokang.caculator.util.Caculator;
 
 
-public class MyActivity extends Activity {
+public class MyActivity extends Activity implements View.OnClickListener {
 
     private CircleButton div_button, mul_button, c_button,del_button
          , plu_button, min_button, equ_button, dot_button
@@ -26,11 +26,10 @@ public class MyActivity extends Activity {
     private BelowView edit_view;
     private AboveView result_view;
 
-    private RelativeLayout relativelayout;
-
+    private Caculate caculate;
     private StringBuffer str = new StringBuffer("");
 
-    private Caculate caculator = new Caculate();
+    private Caculator caculator = new Caculator();
 
     private LinkedList<Double> number = new LinkedList<Double>();
     private LinkedList<Character> character = new LinkedList<Character>();
@@ -41,174 +40,7 @@ public class MyActivity extends Activity {
 
         initView();
 
-        one_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                str.append("1");
-                edit_view.setText(str);
-            }
-        });
-
-        two_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                str.append("2");
-                edit_view.setText(str);
-            }
-        });
-
-        three_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                str.append("3");
-                edit_view.setText(str);
-            }
-        });
-
-        four_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                str.append("4");
-                edit_view.setText(str);
-            }
-        });
-
-        five_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                str.append("5");
-                edit_view.setText(str);
-            }
-        });
-
-        six_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                str.append("6");
-                edit_view.setText(str);
-            }
-        });
-
-        seven_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                str.append("7");
-                edit_view.setText(str);
-            }
-        });
-
-        eight_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                str.append("8");
-                edit_view.setText(str);
-            }
-        });
-
-        nine_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                str.append("9");
-                edit_view.setText(str);
-            }
-        });
-
-        zero_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                str.append("0");
-                edit_view.setText(str);
-            }
-        });
-
-        dot_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                str.append(".");
-                caculator.testString(str);
-                edit_view.setText(str);
-            }
-        });
-
-        min_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                str.append("-");
-                caculator.testString(str);
-                edit_view.setText(str);
-            }
-        });
-
-        mul_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                str.append("×");
-                caculator.testString(str);
-                edit_view.setText(str);
-            }
-        });
-
-        div_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                str.append("÷");
-                caculator.testString(str);
-                edit_view.setText(str);
-            }
-        });
-
-        plu_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                str.append("+");
-                caculator.testString(str);
-                edit_view.setText(str);
-            }
-        });
-
-        c_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                str.delete(0, str.length());
-                edit_view.setText(str);
-                result_view.setText("0");
-            }
-        });
-
-        del_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (str.length()==0) {
-
-                } else {
-                    str.delete(str.length() - 1, str.length());
-                    edit_view.setText(str);
-                }
-            }
-        });
-
-        equ_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                str.append("=");
-                boolean flag = caculator.testString(str);
-                edit_view.setText(str);
-                caculator.addElement(str, number, character);
-                if (number.size() != 0 && flag) {
-                    double result = caculator.computer(number, character);
-                    result_view.setText(String.valueOf(result).replaceAll("0+?$", "").replaceAll("[.]$", ""));
-                    str.delete(0, str.length());
-                    number.remove(0);
-                    character.remove(0);
-                } else if (flag){
-                    edit_view.setText("0");
-                    result_view.setText("0");
-                } else {
-                    number.clear();
-                    character.clear();
-                }
-            }
-        });
+        setAllClickListener();
     }
 
     /**
@@ -236,6 +68,27 @@ public class MyActivity extends Activity {
         eight_button = (CircleButton)findViewById(R.id.eight);
         nine_button = (CircleButton)findViewById(R.id.nine);
     }
+
+    private void setAllClickListener() {
+        c_button.setOnClickListener(this);
+        del_button.setOnClickListener(this);
+        div_button.setOnClickListener(this);
+        mul_button.setOnClickListener(this);
+        plu_button.setOnClickListener(this);
+        min_button.setOnClickListener(this);
+        equ_button.setOnClickListener(this);
+        dot_button.setOnClickListener(this);
+        zero_button.setOnClickListener(this);
+        one_button.setOnClickListener(this);
+        two_button.setOnClickListener(this);
+        three_button.setOnClickListener(this);
+        four_button.setOnClickListener(this);
+        five_button.setOnClickListener(this);
+        six_button.setOnClickListener(this);
+        seven_button.setOnClickListener(this);
+        eight_button.setOnClickListener(this);
+        nine_button.setOnClickListener(this);
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -251,4 +104,119 @@ public class MyActivity extends Activity {
         int id = item.getItemId();
         return id == R.id.action_settings || super.onOptionsItemSelected(item);
     }
-}
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.one:
+                str.append("1");
+                edit_view.setText(str);
+                break;
+            case R.id.two:
+                str.append("2");
+                edit_view.setText(str);
+                break;
+            case R.id.three:
+                str.append("3");
+                edit_view.setText(str);
+                break;
+            case R.id.four:
+                str.append("4");
+                edit_view.setText(str);
+                break;
+            case R.id.five:
+                str.append("5");
+                edit_view.setText(str);
+                break;
+            case R.id.six:
+                str.append("6");
+                edit_view.setText(str);
+                break;
+            case R.id.seven:
+                str.append("7");
+                edit_view.setText(str);
+                break;
+            case R.id.eight:
+                str.append("8");
+                edit_view.setText(str);
+                break;
+            case R.id.nine:
+                str.append("9");
+                edit_view.setText(str);
+                break;
+            case R.id.zero:
+                str.append("0");
+                edit_view.setText(str);
+                break;
+            case R.id.dot:
+                str.append(".");
+                edit_view.setText(str);
+                break;
+            case R.id.plus:
+                str.append("+");
+                caculator.testString(str);
+                edit_view.setText(str);
+                break;
+            case R.id.minus:
+                str.append("-");
+                caculator.testString(str);
+                edit_view.setText(str);
+                break;
+            case R.id.div_button:
+                str.append("÷");
+                caculator.testString(str);
+                edit_view.setText(str);
+                break;
+            case R.id.mul_button:
+                str.append("×");
+                caculator.testString(str);
+                edit_view.setText(str);
+                break;
+            case R.id.del_button:
+                if (str.length()==0) {
+
+                } else {
+                    str.delete(str.length() - 1, str.length());
+                    edit_view.setText(str);
+                }
+                break;
+            case R.id.c_button:
+                str.delete(0, str.length());
+                edit_view.setText(str);
+                result_view.setText("0");
+                break;
+            case R.id.equ:
+                str.append("=");
+                boolean flag = caculator.testString(str);
+                edit_view.setText(str);
+                if (flag) {
+                    caculate = new Caculate(str.toString());
+                    String result = caculate.caculate(caculate.convertToRPN());
+                    result_view.setText(result.replaceAll("0+?$", "").replaceAll("[.]$", ""));
+                    str.delete(0, str.length());
+                    caculate = null;
+                } else {
+                    edit_view.setText("0");
+                    result_view.setText("0");
+                }
+               /* caculator.addElement(str, number, character);
+                if (number.size() != 0 && flag) {
+                    double result = caculator.computer(number, character);
+                    result_view.setText(String.valueOf(result).replaceAll("0+?$", "").replaceAll("[.]$", ""));
+                    str.delete(0, str.length());
+                    number.remove(0);
+                    character.remove(0);
+                } else if (flag){
+                    edit_view.setText("0");
+                    result_view.setText("0");
+                } else {
+                    number.clear();
+                    character.clear();
+                }*/
+                break;
+            default:
+                break;
+        }
+
+        }
+    }
