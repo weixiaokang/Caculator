@@ -1,5 +1,6 @@
 package weixiaokang.caculator.util;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Stack;
 
@@ -97,35 +98,31 @@ public class Calculate {
 			if (s.charAt(0) >= '0' && s.charAt(0) <= '9') {
 				stack.push(Double.parseDouble(s));
 			} else {
-				double a, b, d;
+                BigDecimal a, b, d;
 				switch (s.charAt(0)) {
 				case '+':
-					a = stack.pop();
-					b = stack.pop(); 
-					d = a + b;
-					System.out.println(d);
-					stack.push(d);
+					a = BigDecimal.valueOf(stack.pop());
+					b = BigDecimal.valueOf(stack.pop());
+					d = a.add(b);
+					stack.push(d.doubleValue());
 					break;
 				case '-':
-					a = stack.pop();
-					b = stack.pop(); 
-					d = b - a;
-					System.out.println(d);
-					stack.push(d);
+                    a = BigDecimal.valueOf(stack.pop());
+                    b = BigDecimal.valueOf(stack.pop());
+                    d = a.subtract(b);
+                    stack.push(d.doubleValue());
 					break;
 				case '×':
-					a = stack.pop();
-					b = stack.pop(); 
-					d = a * b;
-					System.out.println(d);
-					stack.push(d);
+                    a = BigDecimal.valueOf(stack.pop());
+                    b = BigDecimal.valueOf(stack.pop());
+                    d = a.multiply(b);
+                    stack.push(d.doubleValue());
 					break;
 				case '÷':
-					a = stack.pop();
-					b = stack.pop(); 
-					d = b / a;
-					System.out.println(d);
-					stack.push(d);
+                    a = BigDecimal.valueOf(stack.pop());
+                    b = BigDecimal.valueOf(stack.pop());
+                    d = a.divide(b, 16, BigDecimal.ROUND_HALF_EVEN);
+                    stack.push(d.doubleValue());
 					break;
 				}
 			}
