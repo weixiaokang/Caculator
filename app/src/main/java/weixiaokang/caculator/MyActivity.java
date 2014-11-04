@@ -2,6 +2,9 @@ package weixiaokang.caculator;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,7 +16,7 @@ import weixiaokang.caculator.util.Calculate;
 import weixiaokang.caculator.util.Calculator;
 
 
-public class MyActivity extends Activity implements View.OnClickListener {
+public class MyActivity extends Activity implements View.OnClickListener, TextWatcher{
 
     private CircleButton div_button, mul_button, c_button,del_button
          , plu_button, min_button, equ_button, dot_button
@@ -27,6 +30,8 @@ public class MyActivity extends Activity implements View.OnClickListener {
     private StringBuffer str = new StringBuffer("");
 
     private Calculator calculator = new Calculator();
+
+    private boolean isFrag = false, isChanged = true;
 
 /*    private LinkedList<Double> number = new LinkedList<Double>();
     private LinkedList<Character> character = new LinkedList<Character>();*/
@@ -85,6 +90,7 @@ public class MyActivity extends Activity implements View.OnClickListener {
         seven_button.setOnClickListener(this);
         eight_button.setOnClickListener(this);
         nine_button.setOnClickListener(this);
+        edit_view.addTextChangedListener(this);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -104,6 +110,7 @@ public class MyActivity extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        Log.i("test", "-->onClick()");
         switch (v.getId()) {
             case R.id.one:
                 str.append("1");
@@ -151,22 +158,18 @@ public class MyActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.plus:
                 str.append("+");
-                calculator.testString(str);
                 edit_view.setText(str);
                 break;
             case R.id.minus:
                 str.append("-");
-                calculator.testString(str);
                 edit_view.setText(str);
                 break;
             case R.id.div_button:
                 str.append("÷");
-                calculator.testString(str);
                 edit_view.setText(str);
                 break;
             case R.id.mul_button:
                 str.append("×");
-                calculator.testString(str);
                 edit_view.setText(str);
                 break;
             case R.id.del_button:
@@ -216,4 +219,41 @@ public class MyActivity extends Activity implements View.OnClickListener {
         }
 
         }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
     }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        Log.i("test", "-->onTextChanged()");
+        if (isChanged && str.length()!=0) {
+            char c = str.charAt(count - 1);
+            if (c == '.' && isFrag) {
+                str.delete(str.length() - 1, str.length());
+            } else if (c == '.') {
+                if (str.length() != 1) {
+                    isFrag = true;
+                }
+                calculator.testString(str);
+            } else if (c == '+'
+                    ||c == '-'
+                    ||c == '×'
+                    ||c == '÷'
+                    ||c == '=') {
+                isFrag = false;
+                calculator.testString(str);
+            }
+            isChanged = false;
+            edit_view.setText(str);
+        } else {
+            isChanged = true;
+        }
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+
+    }
+}

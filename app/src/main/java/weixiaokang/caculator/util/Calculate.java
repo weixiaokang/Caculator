@@ -109,7 +109,7 @@ public class Calculate {
 				case '-':
                     a = BigDecimal.valueOf(stack.pop());
                     b = BigDecimal.valueOf(stack.pop());
-                    d = a.subtract(b);
+                    d = b.subtract(a);
                     stack.push(d.doubleValue());
 					break;
 				case '×':
@@ -121,7 +121,7 @@ public class Calculate {
 				case '÷':
                     a = BigDecimal.valueOf(stack.pop());
                     b = BigDecimal.valueOf(stack.pop());
-                    d = a.divide(b, 16, BigDecimal.ROUND_HALF_EVEN);
+                    d = b.divide(a, 16, BigDecimal.ROUND_HALF_DOWN);
                     stack.push(d.doubleValue());
 					break;
 				}

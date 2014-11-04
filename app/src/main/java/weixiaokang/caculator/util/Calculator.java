@@ -8,12 +8,11 @@ public class Calculator {
 
     public boolean testString(StringBuffer str) {
 
-        /**
-         *
-         */
+
         int location = str.length();
-        if (str.length() == 1 && (str.charAt(0) < '0' || str.charAt(0) > '9')) {
+        if (location == 1 && (str.charAt(0) < '0' || str.charAt(0) > '9')) {
             str.delete(location - 1, location);
+            return false;
         } else if (str.charAt(location - 2) < '0' || str.charAt(location - 2) > '9') {
             char c = str.charAt(location - 1);
             str.delete(location - 1, location);
